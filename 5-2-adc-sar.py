@@ -24,10 +24,9 @@ def num2dac(value):
 def adc(levels, maxVoltage, comp):
     res = [0, 0, 0, 0, 0, 0, 0, 0]
     for value in range(8):
-        time.sleep(0.007)
         res[value] = 1
         GPIO.output(dac, res)
-        time.sleep(0.007)
+        time.sleep(0.002)
         compValue = GPIO.input(comp)
         if compValue != 0:
             res[value] = 0
@@ -45,10 +44,10 @@ try:
         v = adc(levels, maxVoltage, comp)
         data.append(v)
         print(v)
-        if v >=maxVoltage*0.95:
+        if v >=3.13:
             f = 0
     GPIO.output(troyka, 0)
-    while v >=maxVoltage*0.09:
+    while v >=maxVoltage*0.1:
         v = adc(levels, maxVoltage, comp)
         data.append(v)
         print(v)
